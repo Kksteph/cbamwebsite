@@ -779,7 +779,7 @@ function Footer() {
       </div>
 
       <div className="border-t border-white/5 px-6 md:px-12 py-6 max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/25">
-        <p>© {new Date().getFullYear()} CBAM Desk. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} CBAM Estimator. All rights reserved.</p>
         <p>Built for EU importers navigating CBAM compliance.</p>
       </div>
     </footer>
@@ -863,7 +863,7 @@ export default function App() {
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-12">
             <div className="max-w-lg">
-              <p className="text-xs uppercase tracking-widest text-gray-400 mb-4">Why CBAM Desk</p>
+              <p className="text-xs uppercase tracking-widest text-gray-400 mb-4">Why CBAM Estimator</p>
               <h2 className="text-3xl md:text-4xl font-bold text-[#0d1b2e] leading-tight mb-4">
                 The CBAM Challenge Every Importer Faces
               </h2>
