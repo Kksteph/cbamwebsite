@@ -129,6 +129,11 @@
     overflow-x: hidden;
   }
 
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 4rem;
+  }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -182,5 +187,14 @@
     font-size: var(--text-base);
     font-weight: var(--font-weight-normal);
     line-height: 1.5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }

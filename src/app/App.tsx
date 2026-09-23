@@ -1,10 +1,17 @@
 import { useState, useRef, useEffect } from "react";
 import { ChevronDown, ChevronRight, ArrowUpRight, Check, Plus, Minus } from "lucide-react";
 import laptopImg from "../assets/laptop.png";
-import dash1 from "../assets/Customer Web App/Dashboard.png";
-import dash2 from "../assets/Customer Web App/Dashboard-1.png";
-import dash3 from "../assets/Customer Web App/Dashboard-2.png";
 import cbamLogo from "../assets/cbamlogo.png";
+import s1 from "../assets/s1.mov";
+import s11 from "../assets/s11.mov";
+import s2 from "../assets/s2.mov";
+import s22 from "../assets/s22.mov";
+import s3 from "../assets/s3.mov";
+import s33 from "../assets/s33.mov";
+import s4 from "../assets/s4.mov";
+import s44 from "../assets/s44.mov";
+import s5 from "../assets/s5.mov";
+import s55 from "../assets/s55.mov";
 
 // ── Logo marquee ───────────────────────────────────────────────────────────────
 
@@ -15,15 +22,15 @@ function LogoMarquee() {
   const track = [...logos, ...logos];
   return (
     <div className="relative w-full overflow-hidden py-2">
-      <div className="absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
+      <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-24 z-10 pointer-events-none"
         style={{ background: "linear-gradient(to right, #fff 40%, transparent 100%)" }} />
-      <div className="absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
+      <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-24 z-10 pointer-events-none"
         style={{ background: "linear-gradient(to left, #fff 40%, transparent 100%)" }} />
       <div className="flex items-center"
         style={{ width: "max-content", animation: "marquee 35s linear infinite", willChange: "transform" }}>
         {track.map((src, i) => (
           <img key={i} src={src} alt="" draggable={false}
-            className="h-10 w-auto mx-8 object-contain select-none"
+            className="h-8 sm:h-10 w-auto mx-5 sm:mx-8 object-contain select-none"
             style={{ opacity: 0.5, filter: "grayscale(100%)" }} />
         ))}
       </div>
@@ -61,9 +68,8 @@ function Navbar() {
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "shadow-lg" : ""}`}
-      style={{ background: scrolled ? "rgba(13,27,46,0.97)" : "transparent", backdropFilter: scrolled ? "blur(12px)" : "none" }}>
-      <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between h-16">
+    <nav className={`fixed top-0 left-0 right-0 z-50 border-b transition-colors duration-300 ${scrolled ? "border-white/10 bg-[#1F3623]" : "border-transparent bg-transparent"}`}>
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-12 flex items-center justify-between h-16">
 
         {/* Logo */}
         <a href="#">
@@ -71,7 +77,7 @@ function Navbar() {
         </a>
 
         {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-8 text-white/70 text-sm">
+        <div className="hidden lg:flex items-center gap-8 text-white/70 text-sm">
           {navLinks.map(l => (
             <a key={l.href} href={l.href}
               className="hover:text-white transition-colors duration-200"
@@ -82,7 +88,7 @@ function Navbar() {
         </div>
 
         {/* Actions */}
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-3">
           <div className="relative" ref={loginRef}>
             <button onClick={() => setLoginOpen(o => !o)}
               className="text-white/80 text-sm px-4 py-2 rounded-lg border border-white/20 hover:bg-white/10 transition-all flex items-center gap-1.5 cursor-pointer">
@@ -97,13 +103,13 @@ function Navbar() {
           </div>
           <button
             onClick={() => document.querySelector("#final-cta")?.scrollIntoView({ behavior: "smooth" })}
-            className="bg-white text-[#0d1b2e] text-sm px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 active:scale-95 transition-all cursor-pointer">
+            className="bg-white text-[#1F3623] text-sm px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 active:scale-95 transition-all cursor-pointer">
             Book Demo
           </button>
         </div>
 
         {/* Mobile hamburger */}
-        <button className="md:hidden text-white p-2" onClick={() => setMobileOpen(o => !o)}>
+        <button className="lg:hidden text-white p-2" onClick={() => setMobileOpen(o => !o)} aria-label="Toggle navigation" aria-expanded={mobileOpen}>
           <div className={`w-5 h-0.5 bg-white transition-all mb-1 ${mobileOpen ? "rotate-45 translate-y-1.5" : ""}`} />
           <div className={`w-5 h-0.5 bg-white transition-all mb-1 ${mobileOpen ? "opacity-0" : ""}`} />
           <div className={`w-5 h-0.5 bg-white transition-all ${mobileOpen ? "-rotate-45 -translate-y-1.5" : ""}`} />
@@ -112,16 +118,16 @@ function Navbar() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden px-6 pb-6 pt-2 flex flex-col gap-4" style={{ background: "rgba(13,27,46,0.97)" }}>
+        <div className="lg:hidden px-5 sm:px-6 pb-6 pt-2 flex flex-col gap-4 bg-[#1F3623] border-t border-white/10">
           {navLinks.map(l => (
             <a key={l.href} href={l.href} className="text-white/80 text-sm py-1"
               onClick={e => { e.preventDefault(); setMobileOpen(false); document.querySelector(l.href)?.scrollIntoView({ behavior: "smooth" }); }}>
               {l.label}
             </a>
           ))}
-          <div className="flex gap-3 pt-2 border-t border-white/10">
-            <a href="#" className="text-white/70 text-sm px-4 py-2 border border-white/20 rounded-lg">Login</a>
-            <button className="bg-white text-[#0d1b2e] text-sm px-4 py-2 rounded-lg font-semibold">Book Demo</button>
+          <div className="flex flex-col sm:flex-row gap-3 pt-3 border-t border-white/10">
+            <a href="#" className="text-center text-white/70 text-sm px-4 py-2.5 border border-white/20 rounded-lg">Login</a>
+            <button onClick={() => { setMobileOpen(false); document.querySelector("#final-cta")?.scrollIntoView({ behavior: "smooth" }); }} className="bg-white text-[#1F3623] text-sm px-4 py-2.5 rounded-lg font-semibold">Book Demo</button>
           </div>
         </div>
       )}
@@ -136,36 +142,47 @@ const features = [
     title: "Import processing",
     description: "Streamline your data import pipeline with automated validation and error handling. Process thousands of records with confidence and maintain data integrity across your entire workflow.",
     tags: ["Automated Validation", "Error Handling", "Bulk Processing", "Audit Trail"],
-    image: dash1,
+    video: s1,
+    widgetVideo: s11,
+    widgetSpacing: "15%",
   },
   {
     title: "Built-in data",
     description: "Access pre-configured datasets and industry-standard references. Eliminate manual data entry and reduce errors with our comprehensive built-in database of validated information.",
     tags: ["EU Default Values", "CN Code Library", "Material Data", "Methodology Refs"],
-    image: dash2,
+    video: s2,
+    widgetVideo: s22,
+    widgetWidth: "26%",
+    widgetSpacing: "18%",
   },
   {
     title: "Proforma calculator",
     description: "Calculate complex financial models with precision. Our advanced calculator handles multiple scenarios, forecasting models, and sensitivity analysis with real-time updates.",
     tags: ["Multi-scenario", "Liability Forecast", "Sensitivity Analysis", "Real-time"],
-    image: dash3,
+    video: s3,
+    widgetVideo: s33,
+    widgetSpacing: "15%",
   },
   {
     title: "Dashboard & forecasting",
     description: "Visualise your data with interactive charts and predictive analytics. Make informed decisions with powerful forecasting tools that adapt to your business patterns.",
     tags: ["Interactive Charts", "Predictive Analytics", "Custom Reports", "Data Export"],
-    image: dash1,
+    video: s4,
+    widgetVideo: s44,
+    widgetSpacing: "14%",
   },
   {
     title: "Supplier & plant management",
     description: "Manage your entire supply chain from a single interface. Track suppliers, monitor plant operations, and optimise resource allocation with intelligent automation.",
     tags: ["Supplier Outreach", "Plant Tracking", "Data Collection", "Automation"],
-    image: dash2,
+    video: s5,
+    widgetVideo: s55,
+    widgetSpacing: "20%",
   },
 ];
 
-function FeatureCard({ title, description, tags, image, index, reversed }: {
-  title: string; description: string; tags: string[]; image: string; index: number; reversed: boolean;
+function FeatureCard({ title, description, tags, image, video, widgetVideo, widgetWidth, widgetSpacing, index, reversed }: {
+  title: string; description: string; tags: string[]; image?: string; video?: string; widgetVideo?: string; widgetWidth?: string; widgetSpacing?: string; index: number; reversed: boolean;
 }) {
   const [inView, setInView] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -178,18 +195,16 @@ function FeatureCard({ title, description, tags, image, index, reversed }: {
 
   const textPane = (
     <div className="flex flex-col justify-center" style={{ maxWidth: 560 }}>
-      <h3 className="font-medium text-[#0d1b2e] leading-tight mb-5" style={{ fontSize: "clamp(1.7rem, 2.6vw, 2.4rem)" }}>
+      <h3 className="font-medium text-[#1F3623] leading-tight mb-5" style={{ fontSize: "clamp(1.7rem, 2.6vw, 2.4rem)" }}>
         {title}
       </h3>
       <p className="text-gray-500 leading-relaxed mb-8" style={{ fontSize: "clamp(1rem, 1.15vw, 1.15rem)" }}>
         {description}
       </p>
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-x-5 gap-y-3">
         {tags.map((tag, i) => (
-          <div key={i} className="flex items-center gap-2.5 pl-1.5 pr-4 py-1.5 rounded-full bg-gray-100 text-gray-600 text-sm">
-            <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "#0d1b2e" }}>
-              <Check className="w-3.5 h-3.5 text-white" />
-            </div>
+          <div key={i} className="flex items-center gap-2 text-gray-600 text-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#1F3623] flex-shrink-0" aria-hidden="true" />
             {tag}
           </div>
         ))}
@@ -198,12 +213,53 @@ function FeatureCard({ title, description, tags, image, index, reversed }: {
   );
 
   const imagePane = (
-    <div className="flex justify-center">
-      <div className="rounded-3xl p-5 md:p-6 w-full" style={{ background: "rgba(13,27,46,0.07)" }}>
-        <div className="rounded-2xl overflow-hidden shadow-xl">
-          <img src={image} alt={title} className="w-full h-auto block" />
+    <div className="flex justify-center w-full">
+      {video ? (
+        <div
+          className={widgetVideo ? "relative isolate w-full" : "w-full"}
+          style={widgetVideo ? { paddingBottom: widgetSpacing ?? "15%" } : undefined}
+        >
+          {widgetVideo && (
+            <div
+              className="absolute z-0 left-[7%] right-[7%] bottom-[1%] h-[42%] rounded-[50%] bg-[#1F3623]/20 blur-[38px]"
+              aria-hidden="true"
+            />
+          )}
+          <div className="relative z-10 w-full">
+            <div className="w-full overflow-hidden rounded-xl bg-white">
+              <video
+                src={video}
+                aria-label={`${title} product demonstration`}
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="metadata"
+                className="w-full h-auto block scale-[1.01]"
+              />
+            </div>
+            {widgetVideo && (
+              <div
+                className="absolute left-1/2 top-full -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-lg border-4 border-white bg-white"
+                style={{ width: widgetWidth ?? "48%" }}
+              >
+                <video
+                  src={widgetVideo}
+                  aria-label={`${title} status widget demonstration`}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata"
+                  className="w-full h-auto block scale-[1.02]"
+                />
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      ) : (
+        <img src={image} alt={title} className="w-full h-auto block rounded-xl border border-gray-200" />
+      )}
     </div>
   );
 
@@ -214,10 +270,10 @@ function FeatureCard({ title, description, tags, image, index, reversed }: {
       style={{ transitionDelay: `${index * 100}ms` }}
     >
       <div
-        className={`flex flex-col items-center gap-14 md:gap-16 ${reversed ? "md:flex-row-reverse" : "md:flex-row"}`}
+        className={`flex flex-col items-stretch gap-10 lg:gap-16 ${reversed ? "lg:flex-row-reverse" : "lg:flex-row"}`}
       >
-        <div className="flex-1">{textPane}</div>
-        <div className="flex-1">{imagePane}</div>
+        <div className="flex-1 flex items-center">{textPane}</div>
+        <div className="flex-1 flex items-center">{imagePane}</div>
       </div>
     </div>
   );
@@ -252,7 +308,7 @@ function StatCard({ number, label, suffix = "", delay }: { number: string; label
 
   return (
     <div ref={ref}
-      className={`text-center py-8 border-r border-white/10 last:border-r-0 transition-all duration-1000 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+      className={`text-center py-6 sm:py-8 border-t border-white/15 transition-all duration-1000 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
       style={{ transitionDelay: `${delay}ms` }}>
       <div className="text-white mb-2 font-light" style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)" }}>
         {number.match(/^\d+$/) ? `${count}${suffix}` : number}
@@ -267,10 +323,10 @@ function StatCard({ number, label, suffix = "", delay }: { number: string; label
 function BarChartMini({ inverted = false }: { inverted?: boolean }) {
   const bars = [40, 65, 45, 80, 55, 90, 60];
   const text = inverted ? "rgba(255,255,255,0.5)" : "#94a3b8";
-  const active = inverted ? "rgba(255,255,255,0.9)" : "#2d4a6d";
+  const active = inverted ? "rgba(255,255,255,0.9)" : "#4a7d52";
   const inactive = inverted ? "rgba(255,255,255,0.2)" : "#e2e8f0";
   return (
-    <svg viewBox="0 0 160 80" className="w-full h-auto">
+    <svg viewBox="0 0 160 80" className="w-full h-28">
       {bars.map((h, i) => (
         <rect key={i} x={i * 22 + 4} y={80 - h * 0.7} width={14} height={h * 0.7} rx={3}
           fill={i === 5 ? active : inactive} />
@@ -283,11 +339,11 @@ function BarChartMini({ inverted = false }: { inverted?: boolean }) {
 }
 
 function AnalyticsMini({ inverted = false }: { inverted?: boolean }) {
-  const line = inverted ? "rgba(255,255,255,0.7)" : "#2d4a6d";
+  const line = inverted ? "rgba(255,255,255,0.7)" : "#4a7d52";
   const bg = inverted ? "rgba(255,255,255,0.08)" : "#f1f5f9";
   const text = inverted ? "rgba(255,255,255,0.5)" : "#94a3b8";
   return (
-    <svg viewBox="0 0 160 80" className="w-full h-auto">
+    <svg viewBox="0 0 160 80" className="w-full h-28">
       <rect x="0" y="0" width="160" height="80" rx="6" fill={bg} />
       <text x="8" y="14" fontSize="7" fill={text}>Data · Analysis</text>
       <text x="8" y="60" fontSize="18" fontWeight="bold" fill={line}>452</text>
@@ -302,18 +358,18 @@ function ChallengeCard({ title, description, featured, chart }: {
   title: string; description: string; featured: boolean; chart: React.ReactNode;
 }) {
   return (
-    <div className={`rounded-2xl p-6 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-1 ${
-      featured ? "text-white shadow-xl" : "bg-white border border-gray-100 shadow-sm text-[#0d1b2e]"
+    <div className={`rounded-xl p-6 flex flex-col gap-4 border ${
+      featured ? "text-white bg-[#1F3623] border-[#1F3623]" : "bg-white border-gray-200 text-[#1F3623]"
     }`}
-      style={featured ? { background: "linear-gradient(145deg, #0d1b2e 0%, #1a3050 60%, #2d4a6d 100%)" } : {}}>
-      <div className={`w-9 h-9 rounded-full flex items-center justify-center ${featured ? "bg-white/20" : "bg-[#0d1b2e]"}`}>
-        <ArrowUpRight className="w-4 h-4 text-white" />
+      >
+      <div className={`w-9 h-9 rounded-lg border flex items-center justify-center ${featured ? "border-white/25" : "border-gray-200"}`}>
+        <ArrowUpRight className={`w-4 h-4 ${featured ? "text-white" : "text-[#1F3623]"}`} />
       </div>
       <div>
-        <h3 className={`font-semibold text-base mb-2 ${featured ? "text-white" : "text-[#0d1b2e]"}`}>{title}</h3>
+        <h3 className={`font-semibold text-base mb-2 ${featured ? "text-white" : "text-[#1F3623]"}`}>{title}</h3>
         <p className={`text-sm leading-relaxed ${featured ? "text-white/60" : "text-gray-500"}`}>{description}</p>
       </div>
-      <div className="mt-auto pt-4 border-t border-white/10">{chart}</div>
+      <div className={`mt-auto pt-4 border-t ${featured ? "border-white/10" : "border-gray-100"}`}>{chart}</div>
     </div>
   );
 }
@@ -354,11 +410,11 @@ function HowItWorks() {
   }, []);
 
   return (
-    <section id="how-it-works" className="py-24 px-6 md:px-12 bg-[#f8f9fb]" ref={ref}>
+    <section id="how-it-works" className="py-16 sm:py-20 lg:py-24 px-5 sm:px-6 lg:px-12 bg-[#f7f8f7]" ref={ref}>
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 lg:mb-16">
           <p className="text-xs uppercase tracking-[0.2em] text-gray-400 mb-4">The Process</p>
-          <h2 className="font-bold text-[#0d1b2e] leading-tight mb-4" style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}>
+          <h2 className="font-bold text-[#1F3623] leading-tight mb-4" style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}>
             Four steps to full CBAM compliance
           </h2>
           <p className="text-gray-500 text-base max-w-xl mx-auto">
@@ -366,19 +422,19 @@ function HowItWorks() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-0 relative">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-0 relative">
           {/* connector line */}
-          <div className="hidden md:block absolute top-9 left-[12.5%] right-[12.5%] h-px bg-gray-200 z-0" />
+          <div className="hidden lg:block absolute top-8 left-[12.5%] right-[12.5%] h-px bg-gray-200 z-0" />
 
           {steps.map((step, i) => (
             <div key={i}
-              className={`relative z-10 flex flex-col items-center text-center px-6 transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              className={`relative z-10 flex flex-col items-center text-center px-4 transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
               style={{ transitionDelay: `${i * 120}ms` }}>
-              <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6 font-bold text-white text-sm shadow-lg"
-                style={{ background: "#0d1b2e" }}>
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6 font-bold text-white text-sm"
+                style={{ background: "#1F3623" }}>
                 {step.number}
               </div>
-              <h3 className="font-bold text-[#0d1b2e] text-lg mb-3">{step.title}</h3>
+              <h3 className="font-bold text-[#1F3623] text-lg mb-3">{step.title}</h3>
               <p className="text-gray-500 text-sm leading-relaxed">{step.description}</p>
             </div>
           ))}
@@ -410,11 +466,11 @@ function IndustriesSection() {
   }, []);
 
   return (
-    <section className="py-24 px-6 md:px-12 bg-white" ref={ref}>
+    <section className="py-16 sm:py-20 lg:py-24 px-5 sm:px-6 lg:px-12 bg-white" ref={ref}>
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-14">
           <p className="text-xs uppercase tracking-[0.2em] text-gray-400 mb-4">Built for your industry</p>
-          <h2 className="font-bold text-[#0d1b2e] leading-tight mb-4" style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}>
+          <h2 className="font-bold text-[#1F3623] leading-tight mb-4" style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}>
             Built for the goods CBAM actually covers
           </h2>
           <p className="text-gray-500 text-base max-w-xl mx-auto">
@@ -422,13 +478,13 @@ function IndustriesSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           {industries.map((ind, i) => (
             <div key={i}
-              className={`group rounded-2xl border border-gray-100 p-7 hover:border-[#0d1b2e]/20 hover:shadow-md transition-all duration-500 cursor-default ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+              className={`group rounded-xl border border-gray-200 p-6 sm:p-7 hover:border-[#1F3623]/30 transition-colors duration-300 cursor-default ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
               style={{ transitionDelay: `${i * 80}ms` }}>
               <div className="text-3xl mb-4">{ind.icon}</div>
-              <h3 className="font-bold text-[#0d1b2e] text-lg mb-1">{ind.name}</h3>
+              <h3 className="font-bold text-[#1F3623] text-lg mb-1">{ind.name}</h3>
               <p className="text-gray-400 text-sm">{ind.detail}</p>
             </div>
           ))}
@@ -458,33 +514,30 @@ function AuditSection() {
   ];
 
   return (
-    <section className="py-24 px-6 md:px-12 bg-[#f8f9fb]" ref={ref}>
+    <section className="py-16 sm:py-20 lg:py-24 px-5 sm:px-6 lg:px-12 bg-[#f7f8f7]" ref={ref}>
       <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 sm:mb-14">
           <div>
             <p className="text-xs uppercase tracking-[0.2em] text-gray-400 mb-4">Audit & Trust</p>
-            <h2 className="font-bold text-[#0d1b2e] leading-tight" style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}>
+            <h2 className="font-bold text-[#1F3623] leading-tight" style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}>
               Audit-ready by default.
             </h2>
             <p className="text-gray-500 text-base mt-4 max-w-lg">
               Every calculation is traceable, every export is signed, and every methodology is documented — so you're always ready for scrutiny.
             </p>
           </div>
-          <a href="#" className="text-sm text-[#0d1b2e] font-medium underline underline-offset-4 whitespace-nowrap self-start md:self-end">
+          <a href="#" className="text-sm text-[#1F3623] font-medium underline underline-offset-4 whitespace-nowrap self-start md:self-end">
             How we calculate →
           </a>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
           {badges.map((b, i) => (
             <div key={i}
-              className={`bg-white rounded-2xl border border-gray-100 p-6 flex flex-col gap-3 hover:shadow-md transition-all duration-500 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+              className={`bg-white rounded-xl border border-gray-200 p-6 flex flex-col gap-3 transition-all duration-500 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
               style={{ transitionDelay: `${i * 100}ms` }}>
-              <div className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
-                style={{ background: "linear-gradient(135deg, #0d1b2e, #2d4a6d)" }}>
-                <Check className="w-4 h-4 text-white" />
-              </div>
-              <p className="font-semibold text-[#0d1b2e] text-sm">{b.label}</p>
+              <span className="text-xs font-semibold tracking-[0.16em] text-gray-400">{String(i + 1).padStart(2, "0")}</span>
+              <p className="font-semibold text-[#1F3623] text-sm">{b.label}</p>
               <p className="text-gray-400 text-xs leading-relaxed">{b.sub}</p>
             </div>
           ))}
@@ -557,11 +610,11 @@ function PricingSection() {
   }, []);
 
   return (
-    <section id="pricing" className="py-24 px-6 md:px-12 bg-white" ref={ref}>
+    <section id="pricing" className="py-16 sm:py-20 lg:py-24 px-5 sm:px-6 lg:px-12 bg-white" ref={ref}>
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-14">
           <p className="text-xs uppercase tracking-[0.2em] text-gray-400 mb-4">Pricing</p>
-          <h2 className="font-bold text-[#0d1b2e] leading-tight mb-4" style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}>
+          <h2 className="font-bold text-[#1F3623] leading-tight mb-4" style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}>
             Simple, transparent pricing
           </h2>
           <p className="text-gray-500 text-base max-w-md mx-auto">
@@ -569,13 +622,12 @@ function PricingSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-6">
           {plans.map((plan, i) => (
             <div key={i}
-              className={`rounded-2xl p-8 flex flex-col gap-6 transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"} ${plan.highlight ? "text-white shadow-2xl scale-105" : "border border-gray-100 bg-white"}`}
+              className={`rounded-xl p-6 sm:p-8 flex flex-col gap-6 border transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"} ${plan.highlight ? "text-white bg-[#1F3623] border-[#1F3623]" : "border-gray-200 bg-white"}`}
               style={{
                 transitionDelay: `${i * 100}ms`,
-                ...(plan.highlight ? { background: "linear-gradient(145deg, #0d1b2e 0%, #1a3050 60%, #2d4a6d 100%)" } : {}),
               }}>
               {plan.highlight && (
                 <div className="inline-block self-start px-3 py-1 bg-white/20 rounded-full text-xs font-medium text-white">
@@ -585,7 +637,7 @@ function PricingSection() {
               <div>
                 <p className={`text-sm font-medium mb-2 ${plan.highlight ? "text-white/60" : "text-gray-500"}`}>{plan.name}</p>
                 <div className="flex items-end gap-1">
-                  <span className={`font-bold ${plan.highlight ? "text-white" : "text-[#0d1b2e]"}`} style={{ fontSize: "clamp(2rem, 4vw, 2.8rem)" }}>
+                  <span className={`font-bold ${plan.highlight ? "text-white" : "text-[#1F3623]"}`} style={{ fontSize: "clamp(2rem, 4vw, 2.8rem)" }}>
                     {plan.price}
                   </span>
                   {plan.period && <span className={`text-sm mb-2 ${plan.highlight ? "text-white/60" : "text-gray-400"}`}>{plan.period}</span>}
@@ -596,13 +648,13 @@ function PricingSection() {
               <ul className="flex flex-col gap-3 flex-1">
                 {plan.features.map((f, j) => (
                   <li key={j} className="flex items-start gap-3">
-                    <Check className={`w-4 h-4 flex-shrink-0 mt-0.5 ${plan.highlight ? "text-white/70" : "text-[#0d1b2e]"}`} />
+                    <Check className={`w-4 h-4 flex-shrink-0 mt-0.5 ${plan.highlight ? "text-white/70" : "text-[#1F3623]"}`} />
                     <span className={`text-sm ${plan.highlight ? "text-white/80" : "text-gray-600"}`}>{f}</span>
                   </li>
                 ))}
               </ul>
 
-              <button className={`w-full py-3 rounded-xl font-semibold text-sm transition-all active:scale-95 cursor-pointer ${plan.highlight ? "bg-white text-[#0d1b2e] hover:bg-gray-100" : "bg-[#0d1b2e] text-white hover:bg-[#1a3050]"}`}>
+              <button className={`w-full py-3 rounded-xl font-semibold text-sm transition-all active:scale-95 cursor-pointer ${plan.highlight ? "bg-white text-[#1F3623] hover:bg-gray-100" : "bg-[#1F3623] text-white hover:bg-[#2a4a2e]"}`}>
                 {plan.cta}
               </button>
             </div>
@@ -656,7 +708,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
     <div className="border-b border-gray-100">
       <button onClick={() => setOpen(o => !o)}
         className="w-full flex items-center justify-between py-5 text-left cursor-pointer group">
-        <span className="font-medium text-[#0d1b2e] text-base group-hover:text-[#1a3050] transition-colors pr-4">{q}</span>
+        <span className="font-medium text-[#1F3623] text-base group-hover:text-[#2a4a2e] transition-colors pr-4">{q}</span>
         {open
           ? <Minus className="w-5 h-5 text-gray-400 flex-shrink-0" />
           : <Plus className="w-5 h-5 text-gray-400 flex-shrink-0" />}
@@ -668,11 +720,11 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 
 function FAQSection() {
   return (
-    <section id="faq" className="py-24 px-6 md:px-12 bg-[#f8f9fb]">
+    <section id="faq" className="py-16 sm:py-20 lg:py-24 px-5 sm:px-6 lg:px-12 bg-[#f7f8f7]">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-14">
           <p className="text-xs uppercase tracking-[0.2em] text-gray-400 mb-4">FAQ</p>
-          <h2 className="font-bold text-[#0d1b2e] leading-tight mb-4" style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}>
+          <h2 className="font-bold text-[#1F3623] leading-tight mb-4" style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}>
             Questions we get asked a lot
           </h2>
         </div>
@@ -688,11 +740,8 @@ function FAQSection() {
 
 function FinalCTA() {
   return (
-    <section id="final-cta" className="py-32 px-6 md:px-12 relative overflow-hidden"
-      style={{ background: "linear-gradient(160deg, #0d1b2e 0%, #1a3050 50%, #2d4a6d 100%)" }}>
-      <div className="absolute inset-0 pointer-events-none"
-        style={{ backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)", backgroundSize: "22px 22px" }} />
-      <div className="max-w-3xl mx-auto text-center relative z-10">
+    <section id="final-cta" className="py-20 sm:py-24 lg:py-28 px-5 sm:px-6 lg:px-12 bg-[#1F3623]">
+      <div className="max-w-3xl mx-auto text-center">
         <p className="text-white/50 text-sm uppercase tracking-widest mb-6">Get started today</p>
         <h2 className="font-bold text-white leading-tight mb-4" style={{ fontSize: "clamp(2.2rem, 5vw, 3.8rem)" }}>
           Get CBAM off your<br />team's plate.
@@ -702,11 +751,11 @@ function FinalCTA() {
         </p>
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="px-12 py-4 bg-white text-[#0d1b2e] font-bold rounded-xl text-base hover:bg-gray-100 active:scale-95 transition-all shadow-xl cursor-pointer">
+          className="w-full sm:w-auto px-10 py-4 bg-white text-[#1F3623] font-bold rounded-lg text-base hover:bg-gray-100 active:scale-95 transition-all cursor-pointer">
           Book a Demo
         </button>
 
-        <div className="flex flex-wrap items-center justify-center gap-6 mt-12 text-white/40 text-sm">
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 mt-10 text-white/50 text-sm">
           {["SOC 2 Type II", "99.9% Uptime", "Setup in 20 min", "GDPR Compliant"].map(pill => (
             <div key={pill} className="flex items-center gap-2">
               <Check className="w-4 h-4" />
@@ -726,8 +775,8 @@ function Footer() {
   const [submitted, setSubmitted] = useState(false);
 
   return (
-    <footer className="bg-[#080f1a] text-white/50 text-sm">
-      <div className="max-w-6xl mx-auto px-6 md:px-12 py-16 grid grid-cols-1 md:grid-cols-4 gap-12">
+    <footer className="bg-[#111f13] text-white/50 text-sm">
+      <div className="max-w-6xl mx-auto px-5 sm:px-6 lg:px-12 py-14 sm:py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
 
         {/* Brand */}
         <div className="md:col-span-1 flex flex-col gap-4">
@@ -760,17 +809,17 @@ function Footer() {
           {submitted ? (
             <p className="text-green-400 text-sm">You're on the list ✓</p>
           ) : (
-            <form onSubmit={e => { e.preventDefault(); if (email) setSubmitted(true); }} className="flex gap-2">
+            <form onSubmit={e => { e.preventDefault(); if (email) setSubmitted(true); }} className="flex flex-col xl:flex-row gap-2">
               <input
                 type="email"
                 placeholder="your@email.com"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                className="flex-1 bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white text-sm placeholder-white/30 focus:outline-none focus:border-white/30 transition-colors"
+                className="w-full min-w-0 flex-1 bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/30 focus:outline-none focus:border-white/30 transition-colors"
                 required
               />
               <button type="submit"
-                className="bg-white text-[#0d1b2e] px-4 py-2 rounded-lg text-sm font-semibold hover:bg-gray-100 transition-all cursor-pointer">
+                className="bg-white text-[#1F3623] px-4 py-2 rounded-lg text-sm font-semibold hover:bg-gray-100 transition-all cursor-pointer">
                 Join
               </button>
             </form>
@@ -778,7 +827,7 @@ function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-white/5 px-6 md:px-12 py-6 max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/25">
+      <div className="border-t border-white/10 px-5 sm:px-6 lg:px-12 py-6 max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left text-xs text-white/30">
         <p>© {new Date().getFullYear()} CBAM Estimator. All rights reserved.</p>
         <p>Built for EU importers navigating CBAM compliance.</p>
       </div>
@@ -795,22 +844,17 @@ export default function App() {
       <Navbar />
 
       {/* ── Hero ──────────────────────────────────────────── */}
-      <section className="relative w-full overflow-hidden"
-        style={{
-          background: "linear-gradient(160deg, #0d1b2e 0%, #1a3050 40%, #2d4a6d 70%, #3a587a 100%)",
-        }}>
-        <div className="absolute inset-0 pointer-events-none z-0"
-          style={{ backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)", backgroundSize: "22px 22px" }} />
+      <section className="relative w-full overflow-hidden bg-[#1F3623]">
 
         {/* Max-width container keeps layout from breaking on wide screens */}
-        <div className="relative z-10 w-full px-6 md:px-12 pt-40 pb-36">
-          <div className="max-w-7xl mx-auto w-full flex flex-col md:flex-row items-center gap-10 lg:gap-16">
+        <div className="relative z-10 w-full px-5 sm:px-6 lg:px-12 pt-28 sm:pt-32 lg:pt-40 pb-28 sm:pb-32 lg:pb-36">
+          <div className="max-w-7xl mx-auto w-full flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
 
             {/* Text — fixed width so it doesn't shrink on wide screens */}
-            <div className="w-full md:w-[420px] lg:w-[480px] flex-shrink-0 flex flex-col items-start text-left">
+            <div className="w-full lg:w-[460px] xl:w-[500px] flex-shrink-0 flex flex-col items-start text-left">
               <p className="text-white/60 text-sm tracking-wide mb-5">The CBAM Estimator Web App</p>
-              <h1 className="font-bold text-white leading-[1.1] mb-6" style={{ fontSize: "clamp(2.6rem, 3.8vw, 4.2rem)" }}>
-                Your all-in-one<br />CBAM platform
+              <h1 className="font-bold text-white leading-[1.08] mb-6" style={{ fontSize: "clamp(2.5rem, 5.5vw, 4.2rem)" }}>
+                Your all-in-one <span className="whitespace-nowrap">CBAM platform</span>
               </h1>
               <p className="text-white/70 text-base max-w-sm mb-10 leading-relaxed">
                 Understand CBAM, plan costs, manage manufacturers and obtain real-world data – all in one platform.
@@ -823,8 +867,7 @@ export default function App() {
                 </button>
                 <button
                   onClick={() => document.querySelector("#how-it-works")?.scrollIntoView({ behavior: "smooth" })}
-                  className="text-white px-7 py-3.5 rounded-lg font-semibold text-sm border border-white/25 hover:bg-white/10 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
-                  style={{ background: "rgba(30, 55, 90, 0.8)" }}>
+                  className="text-white px-7 py-3.5 rounded-lg font-semibold text-sm border border-white/25 hover:bg-white/10 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer">
                   See the product
                 </button>
               </div>
@@ -845,26 +888,26 @@ export default function App() {
       </section>
 
       {/* ── Social Proof ──────────────────────────────────── */}
-      <section className="py-16 bg-white border-b border-gray-100" style={{ borderRadius: "72px 72px 0 0", marginTop: -72, position: "relative", zIndex: 10 }}>
-        <div className="text-center mb-10 px-6">
+      <section className="py-14 sm:py-16 bg-white border-b border-gray-100 rounded-t-[36px] sm:rounded-t-[56px] lg:rounded-t-[72px] -mt-9 sm:-mt-14 lg:-mt-[72px] relative z-10">
+        <div className="text-center mb-9 sm:mb-10 px-5 sm:px-6">
           <p className="text-gray-500 text-base font-medium mb-5">Trusted by importers across steel, cement, and chemicals</p>
           <h2 className="leading-tight" style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}>
-            <span className="font-normal text-[#0d1b2e]/60">Join the companies </span>
-            <span className="font-bold text-[#0d1b2e]">across industries</span>
+            <span className="font-normal text-[#1F3623]/60">Join the companies </span>
+            <span className="font-bold text-[#1F3623]">across industries</span>
             <br />
-            <span className="font-bold text-[#0d1b2e]">that already trust us</span>
+            <span className="font-bold text-[#1F3623]">that already trust us</span>
           </h2>
         </div>
         <LogoMarquee />
       </section>
 
       {/* ── Problem Statement ─────────────────────────────── */}
-      <section id="why" className="py-20 px-8 bg-white">
+      <section id="why" className="py-16 sm:py-20 lg:py-24 px-5 sm:px-6 lg:px-12 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-12">
             <div className="max-w-lg">
               <p className="text-xs uppercase tracking-widest text-gray-400 mb-4">Why CBAM Estimator</p>
-              <h2 className="text-3xl md:text-4xl font-bold text-[#0d1b2e] leading-tight mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#1F3623] leading-tight mb-4">
                 The CBAM Challenge Every Importer Faces
               </h2>
               <p className="text-gray-500 text-base leading-relaxed">
@@ -872,7 +915,7 @@ export default function App() {
               </p>
             </div>
             <button onClick={() => document.querySelector("#how-it-works")?.scrollIntoView({ behavior: "smooth" })}
-              className="text-sm text-[#0d1b2e] font-medium hover:underline whitespace-nowrap mt-1 self-start cursor-pointer">
+              className="text-sm text-[#1F3623] font-medium hover:underline whitespace-nowrap mt-1 self-start cursor-pointer">
               How It Works →
             </button>
           </div>
@@ -903,9 +946,9 @@ export default function App() {
       <HowItWorks />
 
       {/* ── Features ──────────────────────────────────────── */}
-      <section id="features" className="bg-white" style={{ paddingTop: 100, paddingBottom: 100 }}>
-        <div className="mx-auto px-8 md:px-16" style={{ maxWidth: 1280 }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: 100 }}>
+      <section id="features" className="bg-white py-16 sm:py-20 lg:py-28">
+        <div className="mx-auto px-5 sm:px-6 lg:px-12" style={{ maxWidth: 1280 }}>
+          <div className="flex flex-col gap-20 lg:gap-28">
             {features.map((f, i) => (
               <FeatureCard key={i} {...f} index={i} reversed={i % 2 !== 0} />
             ))}
@@ -917,11 +960,9 @@ export default function App() {
       <IndustriesSection />
 
       {/* ── Stats ─────────────────────────────────────────── */}
-      <section className="py-24 px-8 relative overflow-hidden" style={{ background: "#0d1b2e" }}>
-        <div className="absolute inset-0 pointer-events-none"
-          style={{ backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)", backgroundSize: "22px 22px" }} />
-        <div className="max-w-6xl mx-auto relative z-10">
-          <div className="text-center mb-16">
+      <section className="py-16 sm:py-20 lg:py-24 px-5 sm:px-6 lg:px-12 bg-[#1F3623]">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12 lg:mb-16">
             <h2 className="mb-4 text-white font-bold" style={{ fontSize: "clamp(2rem, 5vw, 3rem)" }}>
               Making Compliance Effortless
             </h2>
@@ -929,7 +970,7 @@ export default function App() {
               Turn regulatory complexity into competitive advantage. Instant compliance visibility, automated reporting, and audit-ready documentation.
             </p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0">
             <StatCard number="2341" label="Suppliers Mapped" delay={0} />
             <StatCard number="98" label="Compliance Rate" suffix="%" delay={100} />
             <StatCard number="847" label="Reports Filed" delay={200} />
