@@ -234,25 +234,17 @@ function LazyProductVideo({ src, label, className }: {
   }, [isVisible, shouldLoad]);
 
   return (
-    <div className="relative overflow-hidden bg-[#f4f6f4]">
-      {!isReady && (
-        <div
-          className="absolute inset-0 animate-pulse bg-gradient-to-br from-[#edf1ed] to-[#f8faf8]"
-          aria-hidden="true"
-        />
-      )}
-      <video
-        ref={videoRef}
-        src={shouldLoad ? src : undefined}
-        aria-label={label}
-        loop
-        muted
-        playsInline
-        preload={shouldLoad ? "auto" : "none"}
-        onCanPlay={() => setIsReady(true)}
-        className={`${className} transition-opacity duration-300 ${isReady ? "opacity-100" : "opacity-0"}`}
-      />
-    </div>
+    <video
+      ref={videoRef}
+      src={shouldLoad ? src : undefined}
+      aria-label={label}
+      loop
+      muted
+      playsInline
+      preload={shouldLoad ? "auto" : "none"}
+      onCanPlay={() => setIsReady(true)}
+      className={`${className} transition-opacity duration-300 ${isReady ? "opacity-100" : "opacity-0"}`}
+    />
   );
 }
 
