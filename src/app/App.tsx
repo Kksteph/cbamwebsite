@@ -181,6 +181,81 @@ const features = [
   },
 ];
 
+function LazyProductVideo({ src, label, className }: {
+  src: string;
+  label: string;
+  className: string;
+}) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const loadObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          loadObserver.disconnect();
+        }
+      },
+      { rootMargin: "700px 0px" },
+    );
+
+    const playbackObserver = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.15 },
+    );
+
+    loadObserver.observe(video);
+    playbackObserver.observe(video);
+
+    return () => {
+      loadObserver.disconnect();
+      playbackObserver.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !shouldLoad) return;
+
+    if (isVisible) {
+      void video.play().catch(() => {
+        // Autoplay can be denied by browser or OS preferences; the first
+        // interaction will allow the browser to resume normal playback.
+      });
+    } else {
+      video.pause();
+    }
+  }, [isVisible, shouldLoad]);
+
+  return (
+    <div className="relative overflow-hidden bg-[#f4f6f4]">
+      {!isReady && (
+        <div
+          className="absolute inset-0 animate-pulse bg-gradient-to-br from-[#edf1ed] to-[#f8faf8]"
+          aria-hidden="true"
+        />
+      )}
+      <video
+        ref={videoRef}
+        src={shouldLoad ? src : undefined}
+        aria-label={label}
+        loop
+        muted
+        playsInline
+        preload={shouldLoad ? "auto" : "none"}
+        onCanPlay={() => setIsReady(true)}
+        className={`${className} transition-opacity duration-300 ${isReady ? "opacity-100" : "opacity-0"}`}
+      />
+    </div>
+  );
+}
+
 function FeatureCard({ title, description, tags, image, video, widgetVideo, widgetWidth, widgetSpacing, index, reversed }: {
   title: string; description: string; tags: string[]; image?: string; video?: string; widgetVideo?: string; widgetWidth?: string; widgetSpacing?: string; index: number; reversed: boolean;
 }) {
@@ -227,14 +302,9 @@ function FeatureCard({ title, description, tags, image, video, widgetVideo, widg
           )}
           <div className="relative z-10 w-full">
             <div className="w-full overflow-hidden rounded-xl bg-white">
-              <video
+              <LazyProductVideo
                 src={video}
-                aria-label={`${title} product demonstration`}
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="metadata"
+                label={`${title} product demonstration`}
                 className="w-full h-auto block scale-[1.01]"
               />
             </div>
@@ -243,14 +313,9 @@ function FeatureCard({ title, description, tags, image, video, widgetVideo, widg
                 className="absolute left-1/2 top-full -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-lg border-4 border-white bg-white"
                 style={{ width: widgetWidth ?? "48%" }}
               >
-                <video
+                <LazyProductVideo
                   src={widgetVideo}
-                  aria-label={`${title} status widget demonstration`}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="metadata"
+                  label={`${title} status widget demonstration`}
                   className="w-full h-auto block scale-[1.02]"
                 />
               </div>
