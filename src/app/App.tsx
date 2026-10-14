@@ -2,16 +2,16 @@ import { useState, useRef, useEffect } from "react";
 import { ChevronDown, ChevronRight, ArrowUpRight, Check, Plus, Minus } from "lucide-react";
 import laptopImg from "../assets/laptop.png";
 import cbamLogo from "../assets/cbamlogo.png";
-import s1 from "../assets/s1.mp4";
-import s11 from "../assets/s11.mov";
-import s2 from "../assets/s2.mp4";
-import s22 from "../assets/s22.mov";
-import s3 from "../assets/s3.mp4";
-import s33 from "../assets/s33.mov";
-import s4 from "../assets/s4.mp4";
-import s44 from "../assets/s44.mov";
-import s5 from "../assets/s5.mp4";
-import s55 from "../assets/s55.mov";
+import s1 from "../assets/s1.webm";
+import s11 from "../assets/s11.webm";
+import s2 from "../assets/s2.webm";
+import s22 from "../assets/s22.webm";
+import s3 from "../assets/s3.webm";
+import s33 from "../assets/s33.webm";
+import s4 from "../assets/s4.webm";
+import s44 from "../assets/s44.webm";
+import s5 from "../assets/s5.webm";
+import s55 from "../assets/s55.webm";
 
 // ── Logo marquee ───────────────────────────────────────────────────────────────
 
