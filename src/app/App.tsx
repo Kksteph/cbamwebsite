@@ -73,7 +73,7 @@ function Navbar() {
 
         {/* Logo */}
         <a href="#">
-          <img src={cbamLogo} alt="CBAM Logo" className="h-8 w-auto" />
+          <img src={cbamLogo} alt="CBAM Logo" className="h-10 w-auto" />
         </a>
 
         {/* Desktop nav */}
@@ -837,7 +837,7 @@ function Footer() {
 
         {/* Brand */}
         <div className="md:col-span-1 flex flex-col gap-4">
-          <img src={cbamLogo} alt="CBAM Logo" className="h-10 object-contain object-left" style={{ maxWidth: 220, width: "100%" }} />
+          <img src={cbamLogo} alt="CBAM Logo" className="h-12 object-contain object-left" style={{ maxWidth: 260, width: "100%" }} />
           <p className="text-white/40 text-sm leading-relaxed">
             The all-in-one CBAM compliance platform for EU importers.
           </p>
